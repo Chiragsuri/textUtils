@@ -11,16 +11,32 @@ export default function TextForm(props) {
     // console.log("Uppercase was Clicked");
     let newText = text.toUpperCase();
     setText(newText);
+    props.showAlert("Converted to uppercase!", "success");
   };
   const handleLoClick = () => {
     // console.log("Uppercase was Clicked");
     let newText = text.toLowerCase();
     setText(newText);
+    props.showAlert("Converted to lowercase!", "success");
   };
   const handleClearClick = () => {
     // console.log("Uppercase was Clicked");
     let newText = "";
     setText(newText);
+    props.showAlert("Text Cleared!", "success");
+  };
+
+  // copy text
+  const handleCopy = () => {
+    navigator.clipboard.writeText(text);
+    props.showAlert("Copied to Clipboard!", "success");
+  };
+
+  // remove extra spaces
+  const handleExtraSpaces = () => {
+    let newText = text.split(/[ ]+/);
+    setText(newText.join(" "));
+    props.showAlert("Extra spaces removed!", "success");
   };
 
   // Function to count Vowels:
@@ -32,6 +48,7 @@ export default function TextForm(props) {
       }
     }
     // console.log("No. of Vowels are: " + countChar);
+    props.showAlert("Vowels Calculated!", "success");
   };
 
   // Function to count Consonants:
@@ -46,6 +63,7 @@ export default function TextForm(props) {
         setCount1(countCons);
       }
     }
+    props.showAlert("Consonants Calculated!", "success");
   };
 
   //on change function
@@ -55,13 +73,20 @@ export default function TextForm(props) {
   };
   return (
     <>
-      <div className="container">
+      <div
+        className="container"
+        style={{ color: props.mode === "dark" ? "white" : "#042743" }}
+      >
         <h1>{props.heading}</h1>
         <div className="mb-3">
           <textarea
             className="form-control"
             value={text}
             onChange={handleOnChange}
+            style={{
+              backgroundColor: props.mode === "dark" ? "#13466e" : "white",
+              color: props.mode === "dark" ? "white" : "#042743",
+            }}
             id="myBox"
             rows="8"
           ></textarea>
@@ -81,15 +106,29 @@ export default function TextForm(props) {
         <button className="btn btn-info mx-1" onClick={handleCoClick}>
           Count no. of Consonants
         </button>
+        <button className={`btn btn-${props.mode} mx-1`} onClick={handleCopy}>
+          Copy Text
+        </button>
+        <button className="btn btn-success mx-1" onClick={handleExtraSpaces}>
+          Remove Spaces
+        </button>
       </div>
-      <div className="container my-3">
+      <div
+        className="container my-3"
+        style={{ color: props.mode === "dark" ? "white" : "#042743" }}
+      >
         <h2>Your Text Summary</h2>
         <p>
-          {text.split(" ").length} words and {text.length} characters
+          {
+            text.split(/\s+/).filter((element) => {
+              return element.length !== 0;
+            }).length
+          }{" "}
+          words and {text.length} characters
         </p>
         <p>{0.008 * text.split(" ").length} Minutes read</p>
         <h2>Preview</h2>
-        <p>{text}</p>
+        <p>{text.length > 0 ? text : "Nothing to preview!"}</p>
         <h3>You have entered:</h3>
         <p>{count} No. of Vowels</p>
         <p>{count1} No. of Consonants</p>
