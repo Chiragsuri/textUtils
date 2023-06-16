@@ -91,29 +91,58 @@ export default function TextForm(props) {
             rows="8"
           ></textarea>
         </div>
-        <button className="btn btn-success mx-1" onClick={handleUpClick}>
+        <button
+          disabled={text.length === 0}
+          className="btn btn-success mx-1 my-1"
+          onClick={handleUpClick}
+        >
           Convert To UpperCase
         </button>
-        <button className="btn btn-primary mx-1" onClick={handleLoClick}>
+        <button
+          disabled={text.length === 0}
+          className="btn btn-primary mx-1 my-1"
+          onClick={handleLoClick}
+        >
           Convert To LowerCase
         </button>
-        <button className="btn btn-warning mx-1" onClick={handleClearClick}>
+        <button
+          disabled={text.length === 0}
+          className="btn btn-warning mx-1 my-1"
+          onClick={handleClearClick}
+        >
           Clear
         </button>
-        <button className="btn btn-danger mx-1" onClick={handleVoClick}>
+        <button
+          disabled={text.length === 0}
+          className="btn btn-danger mx-1 my-1"
+          onClick={handleVoClick}
+        >
           Count no. of Vowels
         </button>
-        <button className="btn btn-info mx-1" onClick={handleCoClick}>
+        <button
+          disabled={text.length === 0}
+          className="btn btn-info mx-1 my-1"
+          onClick={handleCoClick}
+        >
           Count no. of Consonants
         </button>
-        <button className={`btn btn-${props.mode} mx-1`} onClick={handleCopy}>
+        <button
+          disabled={text.length === 0}
+          className={`btn btn-${props.mode} mx-1 my-1`}
+          onClick={handleCopy}
+        >
           Copy Text
         </button>
-        <button className="btn btn-success mx-1" onClick={handleExtraSpaces}>
+        <button
+          disabled={text.length === 0}
+          className="btn btn-success mx-1 my-1"
+          onClick={handleExtraSpaces}
+        >
           Remove Spaces
         </button>
       </div>
       <div
+        disabled={text.length === 0}
         className="container my-3"
         style={{ color: props.mode === "dark" ? "white" : "#042743" }}
       >
@@ -126,7 +155,13 @@ export default function TextForm(props) {
           }{" "}
           words and {text.length} characters
         </p>
-        <p>{0.008 * text.split(" ").length} Minutes read</p>
+        <p>
+          {0.008 *
+            text.split(/\s+/).filter((element) => {
+              return element.length !== 0;
+            }).length}{" "}
+          Minutes read
+        </p>
         <h2>Preview</h2>
         <p>{text.length > 0 ? text : "Nothing to preview!"}</p>
         <h3>You have entered:</h3>

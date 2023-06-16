@@ -1,6 +1,6 @@
 {
-  "homepage": "https://chiragsuri.github.io/textUtils",
-  "name": "harrycourse",
+  "homepage": "https://chiragsuri.github.io/textUtils/",
+  "name": "textutils",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
