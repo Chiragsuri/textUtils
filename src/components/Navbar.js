@@ -27,7 +27,7 @@ function Navbar(props) {
               <a
                 className="nav-link"
                 aria-current="page"
-                href="https:chiragsuri.github.io/"
+                href="https://chiragsuri.github.io/"
               >
                 Home
               </a>
