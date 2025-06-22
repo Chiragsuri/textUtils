@@ -1,17 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 // import About from "./components/About";
 import Navbar from "./components/Navbar";
 import TextForm from "./components/TextForm";
 import Alert from "./components/Alert";
-
 // import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
-  const [mode, setMode] = useState("light"); // whether dark mode is enabled or not
+  // Default theme is dark
+  const [mode, setMode] = useState("dark");
+
+  // State to show alerts
   const [alert, setAlert] = useState(null);
 
-  //alert function
+  // Apply initial background color on first render or mode change
+  useEffect(() => {
+    document.body.style.backgroundColor = mode === "dark" ? "#042743" : "white";
+  }, [mode]);
+
+  // Show alert message with type
   const showAlert = (message, type) => {
     setAlert({
       msg: message,
@@ -22,15 +29,13 @@ function App() {
     }, 1500);
   };
 
-  //dark-light mode toggler
+  // Toggle between dark and light modes
   const toggleMode = () => {
     if (mode === "light") {
       setMode("dark");
-      document.body.style.backgroundColor = "#042743";
       showAlert("Dark Mode has been enabled", "success");
     } else {
       setMode("light");
-      document.body.style.backgroundColor = "white";
       showAlert("Light Mode has been enabled", "success");
     }
   };
@@ -44,25 +49,47 @@ function App() {
         mode={mode}
         toggleMode={toggleMode}
       />
-
       <Alert alert={alert} />
       <div className="container my-3" mode={mode}>
         {/* <Routes>
-            <Route exact path="/about" element={<About mode= {mode}/>} />
-
-            <Route
-              exact path="/"
-              element={ */}
+        <Route exact path="/about" element={<About mode={mode} />} />
+        <Route
+          exact
+          path="/"
+          element={ */}
+        <p
+          style={{
+            textAlign: "justify",
+            fontSize: "3rem",
+            marginBottom: "2rem",
+            color: mode === "dark" ? "white" : "#042743",
+            paddingRight: "1rem",
+            paddingLeft: "1rem",
+          }}
+        >
+          This is a project made by{" "}
+          <a
+            href="https://chiragsuri.github.io"
+            rel="noopener noreferrer"
+            style={{
+              color: mode === "dark" ? "white" : "#042743",
+              textDecoration: "none",
+              fontWeight: "bold",
+            }}
+          >
+            Chirag Suri
+          </a>
+          , which helps in text editing.
+        </p>
         <TextForm
           showAlert={showAlert}
           heading="Enter the text to analyze below"
           mode={mode}
         />
-       {/* }/
-          >
-           </Routes> */}
+        {/* } /> */}
+        {/* </Routes> */}
       </div>
-       {/* </BrowserRouter> */}
+      {/* </BrowserRouter> */}
     </>
   );
 }

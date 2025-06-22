@@ -7,7 +7,7 @@ function Navbar(props) {
       className={`navbar navbar-expand-lg navbar-${props.mode} bg-${props.mode}`}
     >
       <div className="container-fluid">
-        <a className="navbar-brand" to="#">
+        <a className="navbar-brand" href="#">
           {props.title}
         </a>
         <button
@@ -24,7 +24,11 @@ function Navbar(props) {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <a className="nav-link" aria-current="page" href="#">
+              <a
+                className="nav-link"
+                aria-current="page"
+                href="https:chiragsuri.github.io/"
+              >
                 Home
               </a>
             </li>
@@ -44,6 +48,7 @@ function Navbar(props) {
             <button className="btn btn-success" type="submit">
               Search
             </button>
+          {/* Theme toggle switch }
           </form> */}
           <div
             className={`form-check form-switch text-${
@@ -56,12 +61,14 @@ function Navbar(props) {
               role="switch"
               id="flexSwitchCheckDefault"
               onClick={props.toggleMode}
+              checked={props.mode === "light"}
+              readOnly
             />
             <label
               className="form-check-label"
               htmlFor="flexSwitchCheckDefault"
             >
-              Enable Dark Mode
+              Enable {props.mode === "light" ? "Dark" : "Light"} Mode
             </label>
           </div>
         </div>
@@ -70,9 +77,18 @@ function Navbar(props) {
   );
 }
 
+// Prop validation
 Navbar.propTypes = {
   title: PropTypes.string.isRequired,
   aboutText: PropTypes.string.isRequired,
+  mode: PropTypes.string.isRequired,
+  toggleMode: PropTypes.func.isRequired,
 };
-Navbar.defaultProps = { title: "Set kr title nub", aboutText: "About" };
+
+// Default props
+Navbar.defaultProps = {
+  title: "Set kr title nub",
+  aboutText: "About",
+};
+
 export default Navbar;
